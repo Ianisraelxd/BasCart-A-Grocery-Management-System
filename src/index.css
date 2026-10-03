@@ -1,0 +1,37 @@
+:root {
+  --grass: #5dac38;
+  --grass-dark: #3f7d24;
+  --grass-light: #8fd96a;
+  --dirt: #866043;
+  --stone-light: #c6c6c6;
+  --stone-dark: #555;
+  --gold: #fcdb05;
+  --diamond: #4be3d6;
+  --redstone: #d32f2f;
+  --ink: #2b2b2b;
+  --sky: #78b7ff;
+
+  /* 16x16 pixel-art tiles drawn as SVG so they stay crisp at any size */
+  --tex-dirt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23866043'/%3E%3Cg fill='%236d4c35'%3E%3Crect x='2' y='1' width='2' height='1'/%3E%3Crect x='9' y='3' width='1' height='2'/%3E%3Crect x='13' y='6' width='2' height='1'/%3E%3Crect x='4' y='8' width='1' height='2'/%3E%3Crect x='10' y='11' width='2' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='7' y='14' width='1' height='1'/%3E%3Crect x='14' y='13' width='1' height='2'/%3E%3C/g%3E%3Cg fill='%239b7552'%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='12' y='2' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='8' y='7' width='2' height='1'/%3E%3Crect x='14' y='10' width='1' height='1'/%3E%3Crect x='5' y='12' width='1' height='1'/%3E%3Crect x='11' y='15' width='2' height='1'/%3E%3Crect x='3' y='4' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  --tex-stone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%237d7d7d'/%3E%3Cg fill='%23686868'%3E%3Crect x='1' y='2' width='3' height='1'/%3E%3Crect x='8' y='1' width='1' height='2'/%3E%3Crect x='12' y='5' width='2' height='2'/%3E%3Crect x='3' y='7' width='2' height='1'/%3E%3Crect x='9' y='10' width='3' height='1'/%3E%3Crect x='0' y='12' width='2' height='2'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23909090'%3E%3Crect x='5' y='0' width='2' height='1'/%3E%3Crect x='13' y='1' width='1' height='1'/%3E%3Crect x='6' y='5' width='1' height='2'/%3E%3Crect x='1' y='9' width='1' height='1'/%3E%3Crect x='11' y='8' width='2' height='1'/%3E%3Crect x='14' y='13' width='1' height='2'/%3E%3Crect x='4' y='11' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  --tex-planks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23a98450'/%3E%3Cg fill='%238a6a3b'%3E%3Crect y='3' width='16' height='1'/%3E%3Crect y='7' width='16' height='1'/%3E%3Crect y='11' width='16' height='1'/%3E%3Crect y='15' width='16' height='1'/%3E%3Crect x='5' y='0' width='1' height='3'/%3E%3Crect x='11' y='4' width='1' height='3'/%3E%3Crect x='3' y='8' width='1' height='3'/%3E%3Crect x='13' y='12' width='1' height='3'/%3E%3C/g%3E%3Cg fill='%23bd985d'%3E%3Crect x='1' y='1' width='3' height='1'/%3E%3Crect x='7' y='5' width='3' height='1'/%3E%3Crect x='9' y='9' width='3' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  --tex-grass: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%235dac38'/%3E%3Cg fill='%234a9230'%3E%3Crect x='1' y='2' width='2' height='1'/%3E%3Crect x='7' y='5' width='1' height='2'/%3E%3Crect x='11' y='1' width='2' height='1'/%3E%3Crect x='4' y='9' width='1' height='1'/%3E%3Crect x='13' y='8' width='2' height='1'/%3E%3Crect x='8' y='12' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%2377c64a'%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='14' y='4' width='1' height='1'/%3E%3Crect x='2' y='6' width='2' height='1'/%3E%3Crect x='10' y='9' width='1' height='1'/%3E%3Crect x='6' y='14' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  --tex-grass-edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8' shape-rendering='crispEdges'%3E%3Crect width='16' height='3' fill='%235dac38'/%3E%3Cg fill='%235dac38'%3E%3Crect x='1' y='3' width='2' height='2'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='6' y='3' width='1' height='1'/%3E%3Crect x='9' y='3' width='3' height='2'/%3E%3Crect x='10' y='5' width='1' height='1'/%3E%3Crect x='14' y='3' width='1' height='3'/%3E%3C/g%3E%3Cg fill='%238fd96a'%3E%3Crect x='0' y='0' width='4' height='1'/%3E%3Crect x='7' y='0' width='3' height='1'/%3E%3Crect x='12' y='0' width='4' height='1'/%3E%3C/g%3E%3Cg fill='%234a9230'%3E%3Crect x='4' y='2' width='2' height='1'/%3E%3Crect x='11' y='2' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  color: var(--ink);
+  background: #3a2a1a;
+  image-rendering: pixelated;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+}
+h1, h2, h3, .pixel { font-family: 'Press Start 2P', monospace; line-height: 1.5; }
+a { color: inherit; }
+button { touch-action: manipulation; }
+::selection { background: var(--gold); color: #000; }
+* { scrollbar-width: thin; scrollbar-color: #5dac38 #2d2d2d; }
