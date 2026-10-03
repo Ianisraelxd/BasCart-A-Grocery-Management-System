@@ -8,6 +8,7 @@ export default function Inventory() {
   const toast = useToast()
   const [tab, setTab] = useState('Stock levels')
   const [filter, setFilter] = useState('All')
+  const [typeFilter, setTypeFilter] = useState('All')
   const [adj, setAdj] = useState(null)
   const canAdjust = canAccess(user.role, 'products') || user.role === 'Store Manager'
   const name = (id) => db.products.find((p) => p.id === id)?.name ?? id
@@ -44,13 +45,21 @@ export default function Inventory() {
         </Panel>
       ) : (
         <Panel>
+          <div className="toolbar">
+            <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} aria-label="Filter by movement type">
+              {['All', 'Adjustment', 'Sale', 'Purchase Received', 'Online Reserve', 'Order Cancelled', 'Opening Stock'].map((t) => <option key={t}>{t}</option>)}
+            </select>
+            <span className="hint">Choose "Adjustment" to review the reasons for manual stock changes.</span>
+          </div>
           <Table
+            empty="No movements match this filter."
             cols={[
               { label: 'When', render: (m) => fmtDate(m.at) }, { label: 'Product', render: (m) => name(m.productId) },
               { label: 'Type', key: 'type' }, { label: 'Change', num: true, render: (m) => <b className={m.qty > 0 ? 'gain' : 'loss'}>{m.qty > 0 ? '+' : ''}{m.qty}</b> },
-              { label: 'Balance', num: true, key: 'balance' }, { label: 'Ref', key: 'ref' }, { label: 'By', key: 'by' },
+              { label: 'Balance', num: true, key: 'balance' }, { label: 'Reason', render: (m) => m.reason || (m.type === 'Adjustment' ? m.ref : '—') },
+              { label: 'Ref', key: 'ref' }, { label: 'By', key: 'by' },
             ]}
-            rows={db.movements.slice(0, 200)}
+            rows={db.movements.filter((m) => typeFilter === 'All' || m.type === typeFilter).slice(0, 200)}
           />
         </Panel>
       )}

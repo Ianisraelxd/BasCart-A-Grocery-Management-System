@@ -114,10 +114,10 @@ function audit(d, u, action, entity, detail) {
   d.audit.unshift({ id: next(d, 'id', 'AUD'), at: nowIso(), user: u?.name || 'System', action, entity, detail })
   d.audit.length = Math.min(d.audit.length, 1000)
 }
-function move(d, u, product, qty, type, ref) {
+function move(d, u, product, qty, type, ref, reason = '') {
   if (product.stock + qty < 0) throw new Error(`Not enough stock for ${product.name} (available: ${product.stock}).`)
   product.stock += qty
-  d.movements.unshift({ id: next(d, 'mov', 'MOV'), productId: product.id, qty, balance: product.stock, type, ref, by: u?.name || 'System', at: nowIso() })
+  d.movements.unshift({ id: next(d, 'mov', 'MOV'), productId: product.id, qty, balance: product.stock, type, ref, reason, by: u?.name || 'System', at: nowIso() })
   d.movements.length = Math.min(d.movements.length, 2000)
 }
 const need = (cond, msg) => { if (!cond) throw new Error(msg) }
@@ -185,7 +185,7 @@ export function StoreProvider({ children }) {
       need(Number.isInteger(delta) && delta !== 0, 'Adjustment must be a non-zero whole number.')
       need(reason.trim(), 'A reason is required for stock adjustments.')
       const p = d.products.find((x) => x.id === productId)
-      move(d, u, p, delta, 'Adjustment', reason.trim())
+      move(d, u, p, delta, 'Adjustment', 'Manual', reason.trim())
       audit(d, u, 'Adjust', 'Inventory', `${p.code} ${delta > 0 ? '+' : ''}${delta}: ${reason.trim()}`)
     }),
     saveSupplier: (s) => run((d, u) => {
