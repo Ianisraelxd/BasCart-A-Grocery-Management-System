@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { fmtDate, peso, useStore } from '../store'
 import { sfx } from '../sfx'
+import { Icon } from '../icons'
 import { Btn, Burst, Field, Modal, PageHead, Panel, catIcon, report, useToast } from '../ui'
 
 export default function Pos() {
@@ -26,6 +27,8 @@ export default function Pos() {
 
   const setQty = (p, qty) => {
     if (qty > p.stock) return toast(`Only ${p.stock} ${p.name} in stock.`, 'err')
+    if (qty > (cart[p.id] || 0)) sfx.add(qty)
+    else sfx.remove()
     setCart((c) => {
       const n = { ...c }
       if (qty <= 0) delete n[p.id]
@@ -127,7 +130,7 @@ export default function Pos() {
 
       {count > 0 && !cartOpen && (
         <button type="button" className="cart-fab" onClick={() => setCartOpen(true)}>
-          <span>🛒 {count} item{count > 1 ? 's' : ''}</span><b>{peso(total)}</b>
+          <span><Icon name="cart" size={20} /> {count} item{count > 1 ? 's' : ''}</span><b>{peso(total)}</b>
         </button>
       )}
 
