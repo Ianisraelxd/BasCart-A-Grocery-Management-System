@@ -1,29 +1,34 @@
 import { dayKey, fmtDate, peso, useStore } from '../store'
+import { Clock, Gauge, Spark } from '../fx'
+import { Icon } from '../icons'
 import { Count, Panel, PageHead, Table, Status } from '../ui'
 
 export const stockState = (p) => (p.stock === 0 ? 'Out' : p.stock <= p.reorder ? 'Low' : 'OK')
 
-const GOAL = 5000 // daily sales goal shown as an XP bar
+const GOAL = 5000 // daily sales goal shown on the gauge
 
 export default function Dashboard() {
   const { db, user } = useStore()
-  const today = dayKey(new Date().toISOString())
+  const now = Date.now()
+  const today = dayKey(new Date(now).toISOString())
   const todays = db.sales.filter((s) => dayKey(s.at) === today)
   const todayTotal = todays.reduce((s, x) => s + x.total, 0)
   const low = db.products.filter((p) => p.status === 'Active' && p.stock <= p.reorder)
   const openPOs = db.purchaseOrders.filter((p) => p.status === 'Draft' || p.status === 'Sent').length
   const openOrders = db.orders.filter((o) => !['Delivered', 'Cancelled'].includes(o.status)).length
   const stockValue = db.products.reduce((s, p) => s + p.stock * p.cost, 0)
-  const level = Math.floor(todayTotal / 500)
-  const pct = Math.min(100, (todayTotal / GOAL) * 100)
+
+  const days = Array.from({ length: 7 }, (_, i) => new Date(now - (6 - i) * 864e5))
+  const series = days.map((d) => db.sales.filter((s) => dayKey(s.at) === dayKey(d.toISOString())).reduce((t, s) => t + s.total, 0))
+  const labels = days.map((d) => d.toLocaleDateString('en-PH', { weekday: 'short' }))
 
   const kpis = [
-    ['💎', 'Sales today', todayTotal, peso, '#5dac38'],
-    ['🧾', 'Transactions today', todays.length, undefined, '#6f7fd1'],
-    ['⚠️', 'Low / out of stock', low.length, undefined, low.length ? '#d32f2f' : '#5dac38'],
-    ['📜', 'Open purchase orders', openPOs, undefined, '#fcdb05'],
-    ['📦', 'Open online orders', openOrders, undefined, '#e07ad0'],
-    ['🧱', 'Inventory value (cost)', stockValue, peso, '#4be3d6'],
+    ['sales', 'Sales today', todayTotal, peso, '#007aff'],
+    ['receipt', 'Transactions today', todays.length, undefined, '#5856d6'],
+    ['alert', 'Low / out of stock', low.length, undefined, low.length ? '#ff3b30' : '#34c759'],
+    ['purchasing', 'Open purchase orders', openPOs, undefined, '#ff9500'],
+    ['online', 'Open online orders', openOrders, undefined, '#ff2d55'],
+    ['inventory', 'Inventory value (cost)', stockValue, peso, '#30b0c7'],
   ]
   const flow = [
     ['Suppliers', db.suppliers.length], ['Inventory', db.products.reduce((s, p) => s + p.stock, 0) + ' units'],
@@ -32,21 +37,24 @@ export default function Dashboard() {
 
   return (
     <>
-      <PageHead title="Dashboard" sub={`Welcome back, ${user.name} (${user.role})`} />
+      <PageHead title="Dashboard" sub={`Welcome back, ${user.name} · ${user.role}`}>
+        <Clock />
+      </PageHead>
 
-      <Panel className="xp-panel">
-        <div className="xp-head"><span>Daily sales goal</span><b>{peso(todayTotal)} / {peso(GOAL)}</b></div>
-        <div className="xp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.round(pct)}>
-          <div className="xp-fill" style={{ width: `${pct}%` }} />
-          <span className="xp-level">{level}</span>
-        </div>
-      </Panel>
+      <div className="two-col hero-row">
+        <Panel title="Daily sales goal">
+          <Gauge value={todayTotal / GOAL} label="of goal" sub={`${peso(todayTotal)} of ${peso(GOAL)}`} />
+        </Panel>
+        <Panel title="Sales, last 7 days">
+          <Spark data={series} labels={labels} />
+        </Panel>
+      </div>
 
       <div className="kpis">
         {kpis.map(([icon, label, value, fmt, color]) => (
           <div key={label} className="kpi panel" style={{ '--c': color }}>
-            <span className="kpi-icon" aria-hidden="true">{icon}</span>
-            <span>{label}</span>
+            <span className="kpi-icon"><Icon name={icon} size={22} /></span>
+            <span className="kpi-label">{label}</span>
             <strong><Count value={value} format={fmt} /></strong>
           </div>
         ))}
@@ -57,7 +65,7 @@ export default function Dashboard() {
           {flow.map(([name, count], i) => (
             <span key={name} style={{ display: 'contents' }}>
               <span className="step">{name}<small>{count}</small></span>
-              {i < flow.length - 1 && <span className="arrow">▶</span>}
+              {i < flow.length - 1 && <span className="link" aria-hidden="true"><i /></span>}
             </span>
           ))}
         </div>

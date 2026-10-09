@@ -23,7 +23,7 @@ The system puts the enterprise data architecture from the activity into working 
 | **Audit Log** | A searchable trace of important changes and who made them. |
 | **Backup** | Download a JSON backup, restore from one, or reset to the sample data. |
 
-The app works on desktop and on phones.
+The app works on desktop and on phones. It uses a translucent glass interface with automatic light and dark modes, smooth animations, and soft synthesized sound effects. Use the speaker button to mute the sounds.
 
 ## How it maps to the activity
 

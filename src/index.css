@@ -1,37 +1,102 @@
 :root {
-  --grass: #5dac38;
-  --grass-dark: #3f7d24;
-  --grass-light: #8fd96a;
-  --dirt: #866043;
-  --stone-light: #c6c6c6;
-  --stone-dark: #555;
-  --gold: #fcdb05;
-  --diamond: #4be3d6;
-  --redstone: #d32f2f;
-  --ink: #2b2b2b;
-  --sky: #78b7ff;
+  color-scheme: light dark;
 
-  /* 16x16 pixel-art tiles drawn as SVG so they stay crisp at any size */
-  --tex-dirt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23866043'/%3E%3Cg fill='%236d4c35'%3E%3Crect x='2' y='1' width='2' height='1'/%3E%3Crect x='9' y='3' width='1' height='2'/%3E%3Crect x='13' y='6' width='2' height='1'/%3E%3Crect x='4' y='8' width='1' height='2'/%3E%3Crect x='10' y='11' width='2' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='7' y='14' width='1' height='1'/%3E%3Crect x='14' y='13' width='1' height='2'/%3E%3C/g%3E%3Cg fill='%239b7552'%3E%3Crect x='6' y='0' width='1' height='1'/%3E%3Crect x='12' y='2' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='8' y='7' width='2' height='1'/%3E%3Crect x='14' y='10' width='1' height='1'/%3E%3Crect x='5' y='12' width='1' height='1'/%3E%3Crect x='11' y='15' width='2' height='1'/%3E%3Crect x='3' y='4' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
-  --tex-stone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%237d7d7d'/%3E%3Cg fill='%23686868'%3E%3Crect x='1' y='2' width='3' height='1'/%3E%3Crect x='8' y='1' width='1' height='2'/%3E%3Crect x='12' y='5' width='2' height='2'/%3E%3Crect x='3' y='7' width='2' height='1'/%3E%3Crect x='9' y='10' width='3' height='1'/%3E%3Crect x='0' y='12' width='2' height='2'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23909090'%3E%3Crect x='5' y='0' width='2' height='1'/%3E%3Crect x='13' y='1' width='1' height='1'/%3E%3Crect x='6' y='5' width='1' height='2'/%3E%3Crect x='1' y='9' width='1' height='1'/%3E%3Crect x='11' y='8' width='2' height='1'/%3E%3Crect x='14' y='13' width='1' height='2'/%3E%3Crect x='4' y='11' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E");
-  --tex-planks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23a98450'/%3E%3Cg fill='%238a6a3b'%3E%3Crect y='3' width='16' height='1'/%3E%3Crect y='7' width='16' height='1'/%3E%3Crect y='11' width='16' height='1'/%3E%3Crect y='15' width='16' height='1'/%3E%3Crect x='5' y='0' width='1' height='3'/%3E%3Crect x='11' y='4' width='1' height='3'/%3E%3Crect x='3' y='8' width='1' height='3'/%3E%3Crect x='13' y='12' width='1' height='3'/%3E%3C/g%3E%3Cg fill='%23bd985d'%3E%3Crect x='1' y='1' width='3' height='1'/%3E%3Crect x='7' y='5' width='3' height='1'/%3E%3Crect x='9' y='9' width='3' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E");
-  --tex-grass: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%235dac38'/%3E%3Cg fill='%234a9230'%3E%3Crect x='1' y='2' width='2' height='1'/%3E%3Crect x='7' y='5' width='1' height='2'/%3E%3Crect x='11' y='1' width='2' height='1'/%3E%3Crect x='4' y='9' width='1' height='1'/%3E%3Crect x='13' y='8' width='2' height='1'/%3E%3Crect x='8' y='12' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%2377c64a'%3E%3Crect x='5' y='1' width='1' height='1'/%3E%3Crect x='14' y='4' width='1' height='1'/%3E%3Crect x='2' y='6' width='2' height='1'/%3E%3Crect x='10' y='9' width='1' height='1'/%3E%3Crect x='6' y='14' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
-  --tex-grass-edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8' shape-rendering='crispEdges'%3E%3Crect width='16' height='3' fill='%235dac38'/%3E%3Cg fill='%235dac38'%3E%3Crect x='1' y='3' width='2' height='2'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='6' y='3' width='1' height='1'/%3E%3Crect x='9' y='3' width='3' height='2'/%3E%3Crect x='10' y='5' width='1' height='1'/%3E%3Crect x='14' y='3' width='1' height='3'/%3E%3C/g%3E%3Cg fill='%238fd96a'%3E%3Crect x='0' y='0' width='4' height='1'/%3E%3Crect x='7' y='0' width='3' height='1'/%3E%3Crect x='12' y='0' width='4' height='1'/%3E%3C/g%3E%3Cg fill='%234a9230'%3E%3Crect x='4' y='2' width='2' height='1'/%3E%3Crect x='11' y='2' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  --blue: #007aff;
+  --green: #34c759;
+  --red: #ff3b30;
+  --orange: #ff9500;
+  --purple: #af52de;
+  --teal: #30b0c7;
+  --pink: #ff2d55;
+  --indigo: #5856d6;
+
+  --text: #1d1d1f;
+  --text2: rgba(60, 60, 67, .74);
+  --text3: rgba(60, 60, 67, .46);
+  --sep: rgba(60, 60, 67, .14);
+  --field: rgba(120, 120, 128, .12);
+  --field-strong: rgba(120, 120, 128, .2);
+  --opt-bg: #ffffff;
+
+  --glass: rgba(255, 255, 255, .5);
+  --glass-strong: rgba(255, 255, 255, .78);
+  --glass-border: rgba(255, 255, 255, .75);
+  --glass-edge: rgba(255, 255, 255, .95);
+  --hi: rgba(255, 255, 255, .6);
+  --hi-hover: rgba(255, 255, 255, .55);
+  --shadow: 0 12px 40px rgba(40, 55, 110, .14), 0 2px 8px rgba(40, 55, 110, .06);
+  --scrim: rgba(30, 40, 70, .22);
+  --badge-base: #000;
+  --badge-mix: 68%;
+
+  --wall: linear-gradient(160deg, #dfe9ff 0%, #ece6ff 45%, #ffeede 100%);
+  --blob1: #8db8ff;
+  --blob2: #cdb0ff;
+  --blob3: #ffcfae;
+  --blob4: #a9efdc;
+  --blob-opacity: .75;
+
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --spring: cubic-bezier(.34, 1.45, .64, 1);
+  --ease: cubic-bezier(.22, 1, .36, 1);
 }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --blue: #0a84ff;
+    --green: #30d158;
+    --red: #ff453a;
+    --orange: #ff9f0a;
+    --purple: #bf5af2;
+    --teal: #40c8e0;
+    --pink: #ff375f;
+    --indigo: #6e6cf0;
+
+    --text: #f5f5f7;
+    --text2: rgba(235, 235, 245, .72);
+    --text3: rgba(235, 235, 245, .42);
+    --sep: rgba(255, 255, 255, .12);
+    --field: rgba(255, 255, 255, .08);
+    --field-strong: rgba(255, 255, 255, .16);
+    --opt-bg: #2a2d3b;
+
+    --glass: rgba(46, 50, 68, .5);
+    --glass-strong: rgba(36, 39, 54, .82);
+    --glass-border: rgba(255, 255, 255, .14);
+    --glass-edge: rgba(255, 255, 255, .26);
+    --hi: rgba(255, 255, 255, .14);
+    --hi-hover: rgba(255, 255, 255, .1);
+    --shadow: 0 16px 48px rgba(0, 0, 0, .45), 0 2px 8px rgba(0, 0, 0, .25);
+    --scrim: rgba(0, 0, 0, .5);
+    --badge-base: #fff;
+    --badge-mix: 78%;
+
+    --wall: linear-gradient(160deg, #0b1020 0%, #14112b 50%, #1b1426 100%);
+    --blob1: #1f4fb8;
+    --blob2: #5a2fa0;
+    --blob3: #8a3f56;
+    --blob4: #0f6a74;
+    --blob-opacity: .55;
+  }
+}
+
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: 'VT323', monospace;
-  font-size: 22px;
-  color: var(--ink);
-  background: #3a2a1a;
-  image-rendering: pixelated;
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--wall);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   overscroll-behavior-y: none;
 }
-h1, h2, h3, .pixel { font-family: 'Press Start 2P', monospace; line-height: 1.5; }
+h1, h2, h3 { font-family: var(--font); line-height: 1.2; }
 a { color: inherit; }
-button { touch-action: manipulation; }
-::selection { background: var(--gold); color: #000; }
-* { scrollbar-width: thin; scrollbar-color: #5dac38 #2d2d2d; }
+button { touch-action: manipulation; font-family: inherit; }
+::selection { background: rgba(0, 122, 255, .3); }
+* { scrollbar-width: thin; scrollbar-color: rgba(120, 120, 128, .4) transparent; }
