@@ -23,12 +23,12 @@ export default function Dashboard() {
   const labels = days.map((d) => d.toLocaleDateString('en-PH', { weekday: 'short' }))
 
   const kpis = [
-    ['sales', 'Sales today', todayTotal, peso, '#00e5ff'],
-    ['receipt', 'Transactions today', todays.length, undefined, '#7c4dff'],
-    ['alert', 'Low / out of stock', low.length, undefined, low.length ? '#ff3860' : '#2bff9a'],
-    ['purchasing', 'Open purchase orders', openPOs, undefined, '#ffb020'],
-    ['online', 'Open online orders', openOrders, undefined, '#ff2bd6'],
-    ['inventory', 'Inventory value (cost)', stockValue, peso, '#b6ff3c'],
+    ['sales', 'Sales today', todayTotal, peso, '#007aff'],
+    ['receipt', 'Transactions today', todays.length, undefined, '#5856d6'],
+    ['alert', 'Low / out of stock', low.length, undefined, low.length ? '#ff3b30' : '#34c759'],
+    ['purchasing', 'Open purchase orders', openPOs, undefined, '#ff9500'],
+    ['online', 'Open online orders', openOrders, undefined, '#ff2d55'],
+    ['inventory', 'Inventory value (cost)', stockValue, peso, '#30b0c7'],
   ]
   const flow = [
     ['Suppliers', db.suppliers.length], ['Inventory', db.products.reduce((s, p) => s + p.stock, 0) + ' units'],
@@ -42,17 +42,17 @@ export default function Dashboard() {
       </PageHead>
 
       <div className="two-col hero-row">
-        <Panel title="Daily sales goal" className="live">
+        <Panel title="Daily sales goal">
           <Gauge value={todayTotal / GOAL} label="of goal" sub={`${peso(todayTotal)} of ${peso(GOAL)}`} />
         </Panel>
-        <Panel title="Sales · last 7 days" className="live">
+        <Panel title="Sales, last 7 days">
           <Spark data={series} labels={labels} />
         </Panel>
       </div>
 
       <div className="kpis">
         {kpis.map(([icon, label, value, fmt, color]) => (
-          <div key={label} className="kpi panel tilt" style={{ '--c': color }}>
+          <div key={label} className="kpi panel" style={{ '--c': color }}>
             <span className="kpi-icon"><Icon name={icon} size={22} /></span>
             <span className="kpi-label">{label}</span>
             <strong><Count value={value} format={fmt} /></strong>

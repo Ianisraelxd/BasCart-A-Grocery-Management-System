@@ -1,13 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { sfx } from './sfx'
-import { Scramble } from './fx'
 import { Icon } from './icons'
 
 export function PageHead({ title, sub, children }) {
   return (
     <div className="page-head">
       <div>
-        <h1><Scramble text={title} /></h1>
+        <h1>{title}</h1>
         {sub && <p>{sub}</p>}
       </div>
       <div className="head-actions">{children}</div>
@@ -168,27 +167,24 @@ export function Count({ value, format = (n) => Math.round(n) }) {
   return <>{format(shown)}</>
 }
 
-/** One-shot celebration: shockwave rings, a drawn check mark, and radial particles. Change `key` to fire again. */
+/** One-shot celebration: a green check that springs in, a soft ring, and pastel confetti. Change `key` to fire again. */
 export function Burst() {
-  const [bits] = useState(() => Array.from({ length: 36 }, (_, i) => {
-    const a = (i / 36) * Math.PI * 2 + Math.random() * 0.3
-    const d = 110 + Math.random() * 190
-    return {
-      x: Math.cos(a) * d, y: Math.sin(a) * d, s: 0.5 + Math.random() * 1.1, delay: Math.random() * 0.12,
-      c: ['#00e5ff', '#ff2bd6', '#b6ff3c', '#ffffff', '#7c4dff'][i % 5],
-    }
-  }))
+  const [bits] = useState(() => Array.from({ length: 34 }, (_, i) => ({
+    x: (Math.random() - 0.5) * 460, y: 140 + Math.random() * 260, r: (Math.random() - 0.5) * 720,
+    d: Math.random() * 0.25, w: 6 + Math.random() * 6, h: 10 + Math.random() * 8,
+    c: ['#ff8a80', '#ffd180', '#8de0a5', '#8ec5ff', '#d1b3ff', '#ffa6d1'][i % 6],
+  })))
   const [on, setOn] = useState(true)
   useEffect(() => {
-    const t = setTimeout(() => setOn(false), 1800)
+    const t = setTimeout(() => setOn(false), 2200)
     return () => clearTimeout(t)
   }, [])
   if (!on) return null
   return (
     <div className="burst" aria-hidden="true">
-      <i className="ring r1" /><i className="ring r2" /><i className="ring r3" />
-      <svg className="big-check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" /><path d="M18 33l9 9 19-20" /></svg>
-      {bits.map((b, i) => <span key={i} style={{ '--x': `${b.x}px`, '--y': `${b.y}px`, '--s': b.s, animationDelay: `${b.delay}s`, background: b.c, color: b.c }} />)}
+      <i className="ring" />
+      <svg className="big-check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" /><path d="M19 33l9 9 17-19" /></svg>
+      {bits.map((b, i) => <span key={i} style={{ '--x': `${b.x}px`, '--y': `${b.y}px`, '--r': `${b.r}deg`, width: b.w, height: b.h, animationDelay: `${b.d}s`, background: b.c }} />)}
     </div>
   )
 }

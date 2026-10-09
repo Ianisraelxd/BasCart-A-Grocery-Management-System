@@ -22,16 +22,18 @@ import Backup from './pages/Backup'
 
 const PAGES = { dashboard: Dashboard, pos: Pos, online: Online, products: Products, inventory: Inventory, suppliers: Suppliers, purchasing: Purchasing, customers: Customers, sales: Sales, finance: Finance, reports: Reports, employees: Employees, audit: Audit, backup: Backup }
 const SHORT = { pos: 'POS', online: 'Orders', audit: 'Audit', dashboard: 'Home', purchasing: 'Buying', customers: 'Clients', employees: 'Staff' }
-const HUES = [190, 280, 320, 150, 40, 230]
+const HUES = [210, 262, 330, 150, 30, 190]
 
-function Logo({ small }) {
+function Logo({ small, mark }) {
   return (
     <div className={`logo ${small ? 'small' : ''}`}>
-      <svg className="logo-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-        <path d="M16 3.5l10.8 6.25v12.5L16 28.5 5.2 22.25V9.75z" />
-        <circle cx="16" cy="16" r="4" className="core" />
-      </svg>
-      <span>BasCart<b>-A</b></span>
+      <span className="app-icon">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" aria-hidden="true">
+          <path d="M16 5.5l9 5.2v10.6L16 26.5l-9-5.2V10.7z" />
+          <circle cx="16" cy="16" r="3.2" fill="currentColor" stroke="none" />
+        </svg>
+      </span>
+      {!mark && <span className="wordmark">BasCart<b>-A</b></span>}
     </div>
   )
 }
@@ -77,19 +79,22 @@ function Login({ onEnter }) {
   }
   return (
     <div className="login">
-      <form key={shake} className={`panel live login-card ${shake ? 'denied' : ''}`} onSubmit={submit}>
-        <Logo />
-        <p className="status-line"><span className="live-dot" /> System online · secure terminal</p>
-        <Field label="Operator">
+      <form key={shake} className={`panel login-card ${shake ? 'denied' : ''}`} onSubmit={submit}>
+        <div className="login-head">
+          <Logo mark />
+          <h1>BasCart-A</h1>
+          <p>Grocery management. Sign in to continue.</p>
+        </div>
+        <Field label="Employee">
           <select value={id} onChange={(e) => setId(e.target.value)}>
             {db.employees.filter((e) => e.status === 'Active').map((e) => <option key={e.id} value={e.id}>{e.name} — {e.role}</option>)}
           </select>
         </Field>
-        <Field label="Access PIN">
-          <input type="password" inputMode="numeric" autoComplete="off" maxLength={4} placeholder="••••" value={pin} onChange={(e) => { setPin(e.target.value.replace(/\D/g, '')); sfx.tick() }} required />
+        <Field label="PIN">
+          <input type="password" inputMode="numeric" autoComplete="off" maxLength={4} placeholder="4 digits" value={pin} onChange={(e) => { setPin(e.target.value.replace(/\D/g, '')); sfx.tick() }} required />
         </Field>
         {error && <p className="form-error" role="alert">{error}</p>}
-        <Btn variant="green" type="submit">Authenticate</Btn>
+        <Btn variant="green" type="submit">Sign in</Btn>
         <p className="hint center">Demo data: every seeded account uses PIN 1234.</p>
       </form>
     </div>
@@ -148,46 +153,22 @@ function Shell() {
   )
 }
 
-const RIPPLE = '.btn, .chip, .seg button, .quick-cash button, .cart-fab, .prod, .icon-btn, .dock a, .dock button'
 const HOVER = '.btn, .slot, .prod, .chip, .seg button, .dock a, .dock button'
 
-/** Global pointer effects: click ripples, cursor spotlight, 3D tilt, and sounds. */
+/** Global pointer effects: soft cursor highlight on glass, and sounds. */
 function usePointerFx() {
   useEffect(() => {
     let lastHover = 0
     const onClick = (e) => {
-      const t = e.target.closest(RIPPLE)
-      if (t) {
-        const r = t.getBoundingClientRect()
-        const dot = document.createElement('span')
-        dot.className = 'ripple'
-        dot.style.left = `${e.clientX - r.left}px`
-        dot.style.top = `${e.clientY - r.top}px`
-        t.appendChild(dot)
-        setTimeout(() => dot.remove(), 700)
-      }
       if (e.target.closest('.slot, .dock a')) sfx.nav()
       else if (e.target.closest('.btn, .chip, .seg button, .quick-cash button, .icon-btn, .x, .cart-fab')) sfx.click()
     }
     const onMove = (e) => {
-      const glow = e.target.closest('.panel')
-      if (glow) {
-        const r = glow.getBoundingClientRect()
-        glow.style.setProperty('--mx', `${e.clientX - r.left}px`)
-        glow.style.setProperty('--my', `${e.clientY - r.top}px`)
-      }
-      const tilt = e.target.closest('.tilt')
-      if (tilt) {
-        const r = tilt.getBoundingClientRect()
-        tilt.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - 0.5) * 10}deg`)
-        tilt.style.setProperty('--rx', `${-((e.clientY - r.top) / r.height - 0.5) * 10}deg`)
-      }
-    }
-    const onLeave = (e) => {
-      const tilt = e.target.closest?.('.tilt')
-      if (tilt && !tilt.contains(e.relatedTarget)) {
-        tilt.style.setProperty('--rx', '0deg')
-        tilt.style.setProperty('--ry', '0deg')
+      const glass = e.target.closest('.panel')
+      if (glass) {
+        const r = glass.getBoundingClientRect()
+        glass.style.setProperty('--mx', `${e.clientX - r.left}px`)
+        glass.style.setProperty('--my', `${e.clientY - r.top}px`)
       }
     }
     const onOver = (e) => {
@@ -195,45 +176,46 @@ function usePointerFx() {
       const t = e.target.closest(HOVER)
       if (!t || t.contains(e.relatedTarget) || t.disabled) return
       const now = performance.now()
-      if (now - lastHover > 70) { lastHover = now; sfx.hover() }
+      if (now - lastHover > 80) { lastHover = now; sfx.hover() }
     }
     document.addEventListener('click', onClick)
     document.addEventListener('pointermove', onMove, { passive: true })
-    document.addEventListener('pointerout', onLeave)
     document.addEventListener('pointerover', onOver)
     return () => {
       document.removeEventListener('click', onClick)
       document.removeEventListener('pointermove', onMove)
-      document.removeEventListener('pointerout', onLeave)
       document.removeEventListener('pointerover', onOver)
     }
   }, [])
 }
 
-function Warp({ name }) {
+function Welcome({ name }) {
   return (
-    <div className="warp" aria-hidden="true">
-      <i className="wr w1" /><i className="wr w2" /><i className="wr w3" />
-      <div className="warp-text"><small>Access granted</small><b>{name}</b></div>
+    <div className="welcome" aria-hidden="true">
+      <div className="welcome-card">
+        <span className="welcome-check"><Icon name="check" size={30} /></span>
+        <small>Welcome back</small>
+        <b>{name}</b>
+      </div>
     </div>
   )
 }
 
 function Gate() {
   const { user } = useStore()
-  const [warp, setWarp] = useState(null)
+  const [welcome, setWelcome] = useState(null)
   const timer = useRef(0)
   usePointerFx()
   const enter = (name) => {
-    setWarp(name)
+    setWelcome(name)
     clearTimeout(timer.current)
-    timer.current = setTimeout(() => setWarp(null), 1700)
+    timer.current = setTimeout(() => setWelcome(null), 1500)
   }
   return (
     <>
       <Backdrop />
       {user ? <Shell /> : <Login onEnter={enter} />}
-      {warp && <Warp name={warp} />}
+      {welcome && <Welcome name={welcome} />}
     </>
   )
 }
