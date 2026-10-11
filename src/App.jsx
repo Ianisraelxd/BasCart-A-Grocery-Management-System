@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { MODULES, StoreProvider, canAccess, useStore } from './store'
 import { Btn, Field, ToastProvider } from './ui'
-import { Backdrop } from './fx'
 import { Icon } from './icons'
 import { isMuted, setMuted, sfx } from './sfx'
 import Dashboard from './pages/Dashboard'
@@ -213,7 +212,6 @@ function Gate() {
   }
   return (
     <>
-      <Backdrop />
       {user ? <Shell /> : <Login onEnter={enter} />}
       {welcome && <Welcome name={welcome} />}
     </>

@@ -18,23 +18,18 @@
   --field-strong: rgba(120, 120, 128, .2);
   --opt-bg: #ffffff;
 
-  --glass: rgba(255, 255, 255, .5);
-  --glass-strong: rgba(255, 255, 255, .78);
-  --glass-border: rgba(255, 255, 255, .75);
-  --glass-edge: rgba(255, 255, 255, .95);
+  --glass: #ffffff;
+  --glass-strong: #ffffff;
+  --glass-border: rgba(60, 60, 67, .1);
+  --glass-edge: transparent;
   --hi: rgba(255, 255, 255, .6);
   --hi-hover: rgba(255, 255, 255, .55);
-  --shadow: 0 12px 40px rgba(40, 55, 110, .14), 0 2px 8px rgba(40, 55, 110, .06);
+  --shadow: 0 8px 28px rgba(30, 40, 80, .08), 0 1px 3px rgba(30, 40, 80, .06);
   --scrim: rgba(30, 40, 70, .22);
   --badge-base: #000;
   --badge-mix: 68%;
 
-  --wall: linear-gradient(160deg, #dfe9ff 0%, #ece6ff 45%, #ffeede 100%);
-  --blob1: #8db8ff;
-  --blob2: #cdb0ff;
-  --blob3: #ffcfae;
-  --blob4: #a9efdc;
-  --blob-opacity: .75;
+  --wall: #eef1f6;
 
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
@@ -60,23 +55,18 @@
     --field-strong: rgba(255, 255, 255, .16);
     --opt-bg: #2a2d3b;
 
-    --glass: rgba(46, 50, 68, .5);
-    --glass-strong: rgba(36, 39, 54, .82);
-    --glass-border: rgba(255, 255, 255, .14);
-    --glass-edge: rgba(255, 255, 255, .26);
+    --glass: #1a1e2b;
+    --glass-strong: #212636;
+    --glass-border: rgba(255, 255, 255, .08);
+    --glass-edge: transparent;
     --hi: rgba(255, 255, 255, .14);
     --hi-hover: rgba(255, 255, 255, .1);
-    --shadow: 0 16px 48px rgba(0, 0, 0, .45), 0 2px 8px rgba(0, 0, 0, .25);
+    --shadow: 0 8px 28px rgba(0, 0, 0, .35), 0 1px 3px rgba(0, 0, 0, .3);
     --scrim: rgba(0, 0, 0, .5);
     --badge-base: #fff;
     --badge-mix: 78%;
 
-    --wall: linear-gradient(160deg, #0b1020 0%, #14112b 50%, #1b1426 100%);
-    --blob1: #1f4fb8;
-    --blob2: #5a2fa0;
-    --blob3: #8a3f56;
-    --blob4: #0f6a74;
-    --blob-opacity: .55;
+    --wall: #0f1219;
   }
 }
 
@@ -90,7 +80,6 @@ body {
   font-weight: 400;
   color: var(--text);
   background: var(--wall);
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   overscroll-behavior-y: none;
