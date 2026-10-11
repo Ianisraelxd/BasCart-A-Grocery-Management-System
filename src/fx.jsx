@@ -1,14 +1,5 @@
 import { useEffect, useState } from 'react'
 
-/** Soft pastel wallpaper: slow drifting color blobs behind the glass. */
-export function Backdrop() {
-  return (
-    <div className="bg" aria-hidden="true">
-      <div className="blob b1" /><div className="blob b2" /><div className="blob b3" /><div className="blob b4" />
-    </div>
-  )
-}
-
 export function Clock() {
   const [now, setNow] = useState(() => new Date())
   useEffect(() => {
@@ -35,13 +26,8 @@ export function Gauge({ value, label, sub }) {
   return (
     <div className="gauge">
       <svg viewBox="0 0 140 140" role="img" aria-label={`${label}: ${Math.round(pct * 100)}%`}>
-        <defs>
-          <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#5ac8fa" /><stop offset="1" stopColor="#007aff" />
-          </linearGradient>
-        </defs>
         <circle className="g-track" cx="70" cy="70" r="54" />
-        <circle className="g-fill" cx="70" cy="70" r="54" stroke="url(#gaugeGrad)" strokeDasharray={C} strokeDashoffset={on ? C * (1 - pct) : C} transform="rotate(-90 70 70)" />
+        <circle className="g-fill" cx="70" cy="70" r="54" strokeDasharray={C} strokeDashoffset={on ? C * (1 - pct) : C} transform="rotate(-90 70 70)" />
       </svg>
       <div className="g-center"><strong>{Math.round(pct * 100)}%</strong><small>{label}</small></div>
       {sub && <p className="g-sub">{sub}</p>}
@@ -74,12 +60,7 @@ export function Spark({ data, labels }) {
   return (
     <div className="spark">
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="Sales for the last 7 days">
-        <defs>
-          <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#007aff" stopOpacity=".28" /><stop offset="1" stopColor="#007aff" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path className="s-area" d={area} fill="url(#sparkFill)" />
+        <path className="s-area" d={area} />
         <path className="s-line" d={line} pathLength="1" />
         {pts.map(([x, y], i) => <circle key={i} className="s-dot" cx={x} cy={y} r="4" style={{ animationDelay: `${0.7 + i * 0.07}s` }} />)}
       </svg>
